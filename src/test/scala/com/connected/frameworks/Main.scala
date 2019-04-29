@@ -11,20 +11,21 @@ object Main extends SparkDatasetTester {
       .getOrCreate()
     import spark.implicits._
 
-    val someDF = Seq(
+
+    val resultDF = Seq(
       (8, "bat"),
       (64, "mouse"),
       (-27, "horse")
     ).toDF("number", "word")
 
 
-    val someDF1 = Seq(
+    val expectedDF = Seq(
       (8, "bat"),
       (64, "mouse"),
       (-3, "horse")
     ).toDF("number", "word")
 
 
-    assertDatasetEquality(someDF, someDF1, orderedComparision = false)
+    assertDatasetEquality(resultDF, expectedDF, orderedComparision = false)
   }
 }
