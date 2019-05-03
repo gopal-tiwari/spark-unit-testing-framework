@@ -18,12 +18,6 @@ trait SparkDatasetTester {
       )
     }
 
-/*    if (!DatasetSchemaComparator.compareSchema(actualDs, expectedDs, compareNulls, compareColumnNames)) {
-      throw SchemaMismatchException(
-        schemaErrorMessageString(actualDs, expectedDs)
-      )
-    }*/
-
     if (!actualDs.isEqualSchema(expectedDs, compareNulls, compareColumnNames)) {
       throw SchemaMismatchException(
         schemaErrorMessageString(actualDs, expectedDs)
