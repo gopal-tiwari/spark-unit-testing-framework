@@ -1,6 +1,6 @@
 package com.connected.frameworks.testing
 
-import com.connected.frameworks.exceptions.{ContentMismatchException, SchemaMismatchException}
+import com.connected.frameworks.exceptions.{RowDataMismatchException, SchemaMismatchException}
 import org.apache.spark.sql.Dataset
 import org.apache.spark.sql.functions.col
 import com.connected.frameworks.testing.ErrorMessageFormatter._
@@ -28,7 +28,7 @@ trait SparkDatasetTester {
       val actualData = actualDs.collect()
       val expectedData = expectedDs.collect()
       if (!actualData.sameElements(expectedData)) {
-        throw ContentMismatchException(
+        throw RowDataMismatchException(
           dataErrorMessageString(actualData, expectedData)
         )
       }
@@ -37,7 +37,7 @@ trait SparkDatasetTester {
       val actualSorted = defaultDatasetSort(actualDs.toDF(actualDs.columns.mkString(",").replaceAll(" +", "").toLowerCase.split(","): _*)).collect
       val expectedSorted = defaultDatasetSort(expectedDs.toDF(expectedDs.columns.mkString(",").replaceAll(" +", "").toLowerCase.split(","): _*)).collect
       if (!actualSorted.sameElements(expectedSorted)) {
-        throw ContentMismatchException(
+        throw RowDataMismatchException(
           dataErrorMessageString(actualSorted, expectedSorted)
         )
       }
